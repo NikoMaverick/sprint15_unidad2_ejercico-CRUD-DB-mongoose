@@ -1,0 +1,11 @@
+# Archivos a ignorar en subida de proyecto:
+
+# node.js
+/node_modules
+
+# Se ignora ruta MONGO_URI
+/.env
+
+#  Bloqueo de paquetes
+package-lock.json
+
