@@ -1,10 +1,10 @@
 //- index.js - Añadiremos nuestro servidor, conexión a la base de datos y uniremos el resto de la aplicación
 
 const express = require("express")
-const router = require("./routes/tasks")
-const {dbConnection} = require("./config/config")
+const router = require("./routes/tasks.js")
+const {dbConnection} = require("./config/config.js")
 const app = express()
-const PORT = 3000
+const PORT = 8080
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
@@ -22,7 +22,7 @@ app.listen(PORT, () => console.log(`La aplicación está escuchando en el puerto
 const express = require("express")
 const app = express()
 const dbConnection = require("./config/config")
-const router = require("./routes/task")
+const router = require("./routes/tasks")
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));

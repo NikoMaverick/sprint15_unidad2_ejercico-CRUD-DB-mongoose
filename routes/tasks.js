@@ -3,7 +3,7 @@
 
 const express = require ('express');
 const router = express.Router();
-const Task = require('./models/Task');
+const Task = require('..Task./models/Task.js');
 
 
 // Endpoint para crear una tarea.
@@ -28,27 +28,26 @@ router.get('/', async (req, res) => {
 });
 
 // Endpoint para buscar tarea por id.
-router.get('/id/:_id'), async (req, res) => {
+router.get('/id/:_id', async (req, res) => {
   try {
     const tarea = await Task.findByid(req.params._id)  // findByid() obtiene una entidad dado su identificador. Cuando no exista, devuelve un opcional vacío.
     res.status(200).json(tarea);
-    if (!tarea) { // Si no obtiene la tarea, lanzamos error 404(No se ha encontrado)
-      return res.status (404).send('The task was not found');
-    }
+    
   } catch (error) {
     res.status(500).json({ message: 'Error creating task'});
   };
-};
+});
 
 
 // Endpoint para marcar una tarea como completada.
 router.put('markAsCompleted/:_id', async (req, res)  => {
   try {
-    const tarea = await Task.findByidAndUpdate(req.params._id, {completed: true}, {new: true}) //findByIdAndUpdate() se utiliza para buscar un documento por su _id y actualizarlo con nuevos datos.
-    res.status(200).json('Task successfully updated')
-    if(!tarea) {
-      return res.status(404).send({ messaje: 'Task not found'}) // Si no actualiza la tares, lanzamos error 404(No se ha encontrado)
-    };
+    const tarea = await Task.findByidAndUpdate(
+      req.params._id, {
+        completed: true
+      }, {new: true}) //findByIdAndUpdate() se utiliza para buscar un documento por su _id y actualizarlo con nuevos datos.
+    res.status(200).json({ message: 'Task successfully updated' })
+    
   } catch (error) {
     res.status(500).json({ message: 'Error creating task'});
   };
@@ -59,12 +58,10 @@ router.put('markAsCompleted/:_id', async (req, res)  => {
 router.put('/id/:_id', async (req, res) => {
   try{
     const tarea = await Task.findByidAndUpdate(req.params._id, {title: req.body.title}, {new: true}); // Modificamos el titulo de la tarea actualizando el body
-    res.status(200).json('Task successfully updated')
-    if(!tarea) {
-      return res.status(404).send({ messaje: 'Task not found'}) // Si no actualiza la tares, lanzamos error 404(No se ha encontrado)
-    };
+    res.status(200).json({ message: 'Task successfully updated' })
+    
   } catch (error) {
-    res.status(500).json({ message: 'Error creating task'});
+    res.status(500).json({ message: 'Error creating task' });
   };
 });
 
@@ -72,10 +69,8 @@ router.put('/id/:_id', async (req, res) => {
 router.delete('/id/:_id', async (req, res) => {
   try {
     const tarea = await Task.findByidAndDelete(req.params._id);
-    res.status(200).json('Task has been successfully deleted');
-    if(!tarea) {
-      return res.status(404).send({ messaje: 'Task not found'}) // Si no actualiza la tares, lanzamos error 404(No se ha encontrado)
-    };
+    res.status(200).json( {message: 'Task has been successfully deleted'});
+
   } catch (error) {
     res.status(500).json({ message: 'Error creating task'});
   };
